@@ -1,3 +1,0 @@
-Hospital Project
-
-Azad Kilic
