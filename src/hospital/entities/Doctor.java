@@ -1,14 +1,13 @@
-package entities;
+package hospital.entities;
+
 import java.time.LocalDate;
 
 public class Doctor extends Person {
     private String specialty;
-    private double salary;
 
-    public Doctor(String name, LocalDate birthDate, String specialty, double salary) {
+    public Doctor(String name, LocalDate birthDate, String specialty) {
         super(name, birthDate);
         this.specialty = specialty;
-        this.salary = salary;
     }
 
     public String getSpecialty() {
@@ -19,16 +18,8 @@ public class Doctor extends Person {
         this.specialty = specialty;
     }
 
-    public double getSalary() {
-        return salary;
-    }
-
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
-
     @Override
     public void printDetails() {
-        System.out.println("Doctor: " + getName() + ", Specialty: " + specialty);
+        System.out.println("Doctor Name: " + getName() + ", Specialty: " + getSpecialty());
     }
 }

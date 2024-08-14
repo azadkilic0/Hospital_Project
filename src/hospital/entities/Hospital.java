@@ -1,4 +1,4 @@
-package entities;
+package hospital.entities;
 public class Hospital {
     private static Hospital instance;
     private String name;

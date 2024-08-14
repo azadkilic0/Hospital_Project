@@ -1,4 +1,4 @@
-package entities;
+package hospital.entities;
 
 import java.time.LocalDateTime;
 
