@@ -6,7 +6,7 @@ public abstract class Person {
     private String name;
     private LocalDate birthDate;
 
-    // Constructor
+
     public Person(String name, LocalDate birthDate) {
         this.name = name;
         this.birthDate = birthDate;
@@ -17,21 +17,17 @@ public abstract class Person {
         return name;
     }
 
-    // Setter for name
     public void setName(String name) {
         this.name = name;
     }
 
-    // Getter for birthDate
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    // Setter for birthDate
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    // Abstract method to be implemented by subclasses for specific print details
     public abstract void printDetails();
 }
