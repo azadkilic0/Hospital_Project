@@ -12,7 +12,6 @@ public abstract class Person {
         this.birthDate = birthDate;
     }
 
-    // Abstract methods to be implemented by subclasses
     public abstract void work();
     public abstract String getRole();
 
