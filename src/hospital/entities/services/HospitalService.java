@@ -1,30 +1,67 @@
 package hospital.entities.services;
 
 import hospital.entities.Patient;
+import hospital.entities.Person;
 import hospital.entities.Department;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class HospitalService {
-    private List<Patient> admittedPatients = new ArrayList<>();
-    private static final int MAX_BEDS = 100;
+    private List<Patient> patients = new ArrayList<>();
+    private List<Department> departments = new ArrayList<>();
+    private int maxBeds = 100;
 
-    public void admitPatient(Patient patient, Department department) {
-        if (admittedPatients.size() < MAX_BEDS) {
-            admittedPatients.add(patient);
-            patient.setDepartment(department);
-            System.out.println("Admitting patient " + patient.getName() + " to " + department.getName());
+    public HospitalService(int maxBeds) {
+        this.maxBeds = maxBeds;
+    }
+
+    public void addPatient(Patient patient) {
+        if (patients.size() < maxBeds) {
+            patients.add(patient);
+            System.out.println("Patient added: " + patient.getName());
         } else {
-            System.out.println("No available beds to admit patient " + patient.getName());
+            System.out.println("Cannot add patient. Hospital is full.");
         }
     }
 
-    public void dischargePatient(Patient patient) {
-        if (admittedPatients.contains(patient)) {
-            admittedPatients.remove(patient);
-            System.out.println("Discharging patient " + patient.getName());
+    public void removePatient(Patient patient) {
+        patients.remove(patient);
+        System.out.println("Patient removed: " + patient.getName());
+    }
+
+    public void addDepartment(Department department) {
+        departments.add(department);
+        System.out.println("Department added: " + department.getName());
+    }
+
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public List<Department> getDepartments() {
+        return departments;
+    }
+
+    public int getMaxBeds() {
+        return maxBeds;
+    }
+
+    public void setMaxBeds(int maxBeds) {
+        this.maxBeds = maxBeds;
+    }
+
+
+    public void displayPersonDetails(Person person) {
+        System.out.println(person.toString());
+    }
+
+    // Method that accepts only Person and its subclasses
+    public void processPerson(Person person) {
+        if (person instanceof Patient) {
+            System.out.println("Processing patient: " + person.getName());
         } else {
-            System.out.println("Patient " + patient.getName() + " is not admitted.");
+            System.out.println("Processing person: " + person.getName());
         }
     }
 }

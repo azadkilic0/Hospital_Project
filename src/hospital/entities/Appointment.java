@@ -21,6 +21,7 @@ public class Appointment {
         this.doctor = doctor;
     }
 
+
     public Patient getPatient() {
         return patient;
     }
