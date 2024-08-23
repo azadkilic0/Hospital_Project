@@ -5,15 +5,15 @@ import java.util.Arrays;
 public class Hospital {
     private String name;
     private String location;
-    private Department[] departments = new Department[10];
-    private Doctor[] doctors = new Doctor[50];
-    private Nurse[] nurses = new Nurse[50];
-    private Patient[] patients = new Patient[200];
-    private Admin[] admins = new Admin[10];
-    private MedicalRecord[] medicalRecords = new MedicalRecord[200];
-    private MedicalEquipment[] equipment = new MedicalEquipment[100];
-    private Appointment[] appointments = new Appointment[100];
-    private Prescription[] prescriptions = new Prescription[200];
+    private Department[] departments ;
+    private Doctor[] doctors ;
+    private Nurse[] nurses ;
+    private Patient[] patients ;
+    private Admin[] admins ;
+    private MedicalRecord[] medicalRecords ;
+    private MedicalEquipment[] equipments;
+    private Appointment[] appointments ;
+    private Prescription[] prescriptions ;
 
     public Hospital(String name, String location) {
         this.name = name;
@@ -75,9 +75,9 @@ public class Hospital {
     }
 
     public void addEquipment(MedicalEquipment eq) {
-        for (int i = 0; i < equipment.length; i++) {
-            if (equipment[i] == null) {
-                equipment[i] = eq;
+        for (int i = 0; i < equipments.length; i++) {
+            if (equipments[i] == null) {
+                equipments[i] = eq;
                 break;
             }
         }
@@ -126,8 +126,8 @@ public class Hospital {
         return medicalRecords;
     }
 
-    public MedicalEquipment[] getEquipment() {
-        return equipment;
+    public MedicalEquipment[] getEquipments() {
+        return equipments;
     }
 
     public Appointment[] getAppointments() {
@@ -149,7 +149,7 @@ public class Hospital {
                 ", patients=" + Arrays.toString(patients) +
                 ", admins=" + Arrays.toString(admins) +
                 ", medicalRecords=" + Arrays.toString(medicalRecords) +
-                ", equipment=" + Arrays.toString(equipment) +
+                ", equipments=" + Arrays.toString(equipments) +
                 ", appointments=" + Arrays.toString(appointments) +
                 ", prescriptions=" + Arrays.toString(prescriptions) +
                 '}';
