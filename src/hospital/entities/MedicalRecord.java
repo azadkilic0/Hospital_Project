@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class MedicalRecord {
     private Patient patient;
-    private String[] diagnoses = new String[10];
-    private String[] treatments = new String[10];
+    private String[] diagnoses = new String[50];
+    private String[] treatments = new String[50];
     private Doctor doctor;
 
     public MedicalRecord(Patient patient, Doctor doctor) {
