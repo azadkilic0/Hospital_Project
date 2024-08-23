@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Patient extends Person {
-    protected String disease;  // Protected field
-    protected LocalDate admissionDate;
+    protected String disease;
+    private LocalDate admissionDate;
 
     public Patient(String name, LocalDate birthDate, String disease, LocalDate admissionDate) {
         super(name, birthDate);
