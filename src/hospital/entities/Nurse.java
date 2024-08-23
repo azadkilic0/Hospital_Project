@@ -1,21 +1,18 @@
 package hospital.entities;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Nurse extends Person {
-    private String department;
     private int yearsOfExperience;
 
-    public Nurse(String name, LocalDate birthDate, String department, int yearsOfExperience) {
+    public Nurse(String name, LocalDate birthDate, int yearsOfExperience) {
         super(name, birthDate);
-        this.department = department;
         this.yearsOfExperience = yearsOfExperience;
     }
 
     @Override
     public void work() {
-        System.out.println("Nurse " + name + " is caring for patients.");
+        System.out.println("Nurse " + getName() + " is caring for patients.");
     }
 
     @Override
@@ -25,33 +22,8 @@ public class Nurse extends Person {
 
     @Override
     public String toString() {
-        return "Nurse{name='" + name + "', birthDate=" + birthDate +
-                ", department='" + department + "', yearsOfExperience=" + yearsOfExperience + "}";
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Nurse nurse = (Nurse) o;
-        return yearsOfExperience == nurse.yearsOfExperience &&
-                Objects.equals(name, nurse.name) &&
-                Objects.equals(birthDate, nurse.birthDate) &&
-                Objects.equals(department, nurse.department);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, birthDate, department, yearsOfExperience);
-    }
-
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
+        return "Nurse{name='" + getName() + "', birthDate=" + getBirthDate() +
+                ", yearsOfExperience=" + yearsOfExperience + "}";
     }
 
     public int getYearsOfExperience() {
@@ -60,5 +32,18 @@ public class Nurse extends Person {
 
     public void setYearsOfExperience(int yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Nurse nurse = (Nurse) o;
+        return yearsOfExperience == nurse.yearsOfExperience;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(yearsOfExperience);
     }
 }

@@ -5,18 +5,22 @@ import java.util.Objects;
 public class MedicalEquipment {
     private String equipmentName;
     private String serialNumber;
-    private Department department;
 
-    public MedicalEquipment(String equipmentName, String serialNumber, Department department) {
+    public MedicalEquipment(String equipmentName, String serialNumber) {
         this.equipmentName = equipmentName;
         this.serialNumber = serialNumber;
-        this.department = department;
+    }
+
+    public String getName() {
+        return equipmentName;
     }
 
     @Override
     public String toString() {
-        return "MedicalEquipment{equipmentName='" + equipmentName + "', serialNumber='" + serialNumber +
-                "', department=" + (department != null ? department.getName() : "No department") + "}";
+        return "MedicalEquipment{" +
+                "equipmentName='" + equipmentName + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
+                '}';
     }
 
     @Override
@@ -25,14 +29,14 @@ public class MedicalEquipment {
         if (o == null || getClass() != o.getClass()) return false;
         MedicalEquipment that = (MedicalEquipment) o;
         return Objects.equals(equipmentName, that.equipmentName) &&
-                Objects.equals(serialNumber, that.serialNumber) &&
-                Objects.equals(department, that.department);
+                Objects.equals(serialNumber, that.serialNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(equipmentName, serialNumber, department);
+        return Objects.hash(equipmentName, serialNumber);
     }
+
     public String getEquipmentName() {
         return equipmentName;
     }
@@ -47,13 +51,5 @@ public class MedicalEquipment {
 
     public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
     }
 }

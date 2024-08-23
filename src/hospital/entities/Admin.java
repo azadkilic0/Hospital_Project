@@ -15,7 +15,7 @@ public class Admin extends Person {
 
     @Override
     public void work() {
-        System.out.println("Admin " + name + " is managing hospital operations.");
+        System.out.println("Admin " + getName() + " is managing hospital operations.");
     }
 
     @Override
@@ -25,26 +25,9 @@ public class Admin extends Person {
 
     @Override
     public String toString() {
-        return "Admin{name='" + name + "', birthDate=" + birthDate +
+        return "Admin{name='" + getName() + "', birthDate=" + getBirthDate() +
                 ", role='" + role + "', yearsOfService=" + yearsOfService + "}";
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Admin admin = (Admin) o;
-        return yearsOfService == admin.yearsOfService &&
-                Objects.equals(name, admin.name) &&
-                Objects.equals(birthDate, admin.birthDate) &&
-                Objects.equals(role, admin.role);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, birthDate, role, yearsOfService);
-    }
-
 
     public String getRoleName() {
         return role;
@@ -60,5 +43,18 @@ public class Admin extends Person {
 
     public void setYearsOfService(int yearsOfService) {
         this.yearsOfService = yearsOfService;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Admin admin = (Admin) o;
+        return yearsOfService == admin.yearsOfService && role.equals(admin.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(role, yearsOfService);
     }
 }

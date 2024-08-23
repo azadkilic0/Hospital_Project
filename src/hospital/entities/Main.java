@@ -1,83 +1,115 @@
+
+
 import hospital.entities.*;
-import hospital.entities.Admin;
-import hospital.entities.MedicalEquipment;
-import hospital.entities.services.HospitalService;
-import java.time.*;
-import java.util.*;
+import hospital.services.HospitalService;
+
+import java.time.LocalDate;
+import java.util.Scanner;
+import hospital.entities.Department;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        HospitalService hospitalService = new HospitalService(100);
 
-        // Admin Creation
-        System.out.println("Enter new admin's name:");
-        String adminName = scanner.nextLine();
-        System.out.println("Enter admin's birthdate (YYYY-MM-DD):");
-        LocalDate adminBirthDate = LocalDate.parse(scanner.nextLine());
-        System.out.println("Enter admin's role:");
-        String adminRole = scanner.nextLine();
-        System.out.println("Enter admin's years of service:");
-        int adminYearsOfService = Integer.parseInt(scanner.nextLine());
-        Admin newAdmin = new Admin(adminName, adminBirthDate, adminRole, adminYearsOfService);
+        // Creating a hospital
+        Hospital hospital = new Hospital("City Hospital", "123 Main St");
 
-        hospitalService.processPerson(newAdmin);
+        // Creating departments
+        Department cardiology = new Department("Cardiology", 20, 30, 10, 100);
+        Department neurology = new Department("Neurology", 15, 20, 5, 80);
 
-        // Doctor Creation
-        System.out.println("Enter new doctor's name:");
-        String newDoctorName = scanner.nextLine();
-        System.out.println("Enter new doctor's birthdate (YYYY-MM-DD):");
-        LocalDate newDoctorBirthDate = LocalDate.parse(scanner.nextLine());
-        System.out.println("Enter new doctor's specialty:");
-        String newSpecialty = scanner.nextLine();
-        Doctor newDoctor = new Doctor(newDoctorName, newDoctorBirthDate, newSpecialty);
+        hospital.addDepartment(cardiology);
+        hospital.addDepartment(neurology);
 
-        hospitalService.processPerson(newDoctor);
+        // Creating doctors
+        Doctor doctor1 = new Doctor("Dr. John Smith", LocalDate.of(1980, 5, 15), "Cardiologist");
+        Doctor doctor2 = new Doctor("Dr. Jane Doe", LocalDate.of(1975, 8, 25), "Neurologist");
 
-        // Patient Creation
-        System.out.println("Enter new patient's name:");
-        String newPatientName = scanner.nextLine();
-        System.out.println("Enter new patient's birthdate (YYYY-MM-DD):");
-        LocalDate newPatientBirthDate = LocalDate.parse(scanner.nextLine());
-        System.out.println("Enter new patient's disease:");
-        String newDisease = scanner.nextLine();
-        System.out.println("Enter admission date (YYYY-MM-DD):");
-        LocalDate newAdmissionDate = LocalDate.parse(scanner.nextLine());
+        cardiology.addDoctor(doctor1);
+        neurology.addDoctor(doctor2);
 
-        Department department = new Department("General Medicine");
-        Patient newPatient = new Patient(newPatientName, newPatientBirthDate, newDisease, newAdmissionDate, department);
+        // Creating nurses
+        Nurse nurse1 = new Nurse("Alice Brown", LocalDate.of(1990, 2, 10), 5);
+        Nurse nurse2 = new Nurse("Bob White", LocalDate.of(1985, 11, 5), 10);
 
-        hospitalService.addPatient(newPatient);
-        hospitalService.processPerson(newPatient);
+        cardiology.addNurse(nurse1);
+        neurology.addNurse(nurse2);
 
-        // Nurse Creation
-        System.out.println("Enter new nurse's name:");
-        String newNurseName = scanner.nextLine();
-        System.out.println("Enter new nurse's birthdate (YYYY-MM-DD):");
-        LocalDate newNurseBirthDate = LocalDate.parse(scanner.nextLine());
-        System.out.println("Enter new nurse's department:");
-        String newNurseDepartment = scanner.nextLine();
-        System.out.println("Enter nurse's years of experience:");
-        int newNurseExperience = Integer.parseInt(scanner.nextLine());
-        Nurse newNurse = new Nurse(newNurseName, newNurseBirthDate, newNurseDepartment, newNurseExperience);
+        // Creating medical equipment
+        MedicalEquipment ecgMachine = new MedicalEquipment("ECG Machine", "ECG-1234");
+        MedicalEquipment mriScanner = new MedicalEquipment("MRI Scanner", "MRI-5678");
 
-        hospitalService.processPerson(newNurse);
+        cardiology.addEquipment(ecgMachine);
+        neurology.addEquipment(mriScanner);
 
-        // Medical Equipment Creation
-        System.out.println("Enter new medical equipment name:");
-        String equipmentName = scanner.nextLine();
-        System.out.println("Enter equipment serial number:");
-        String serialNumber = scanner.nextLine();
-        System.out.println("Enter department name for equipment:");
-        String equipmentDepartmentName = scanner.nextLine();
-        Department equipmentDepartment = new Department(equipmentDepartmentName);
-        MedicalEquipment newEquipment = new MedicalEquipment(equipmentName, serialNumber, equipmentDepartment);
+        // Creating patients
+        Patient patient1 = new Patient("Tom Green", LocalDate.of(1995, 7, 20), "Heart Disease", LocalDate.of(2023, 9, 15));
+        Patient patient2 = new Patient("Sarah Black", LocalDate.of(2000, 1, 15), "Migraine", LocalDate.of(2023, 9, 16));
 
-        System.out.println(newEquipment.toString());
+        hospital.addPatient(patient1);
+        hospital.addPatient(patient2);
 
-        // Closing scanner
+        // Creating medical records
+        MedicalRecord record1 = new MedicalRecord(patient1, doctor1);
+        MedicalRecord record2 = new MedicalRecord(patient2, doctor2);
+
+        record1.addDiagnosis("Acute Myocardial Infarction");
+        record1.addTreatment("Angioplasty");
+
+        record2.addDiagnosis("Chronic Migraine");
+        record2.addTreatment("Pain Management Therapy");
+
+        hospital.addMedicalRecord(record1);
+        hospital.addMedicalRecord(record2);
+
+        // Creating appointments
+        Appointment appointment1 = new Appointment(LocalDate.of(2023, 9, 18), doctor1, patient1);
+        Appointment appointment2 = new Appointment(LocalDate.of(2023, 9, 19), doctor2, patient2);
+
+        hospital.addAppointment(appointment1);
+        hospital.addAppointment(appointment2);
+
+        // Creating prescriptions
+        Prescription prescription1 = new Prescription("Aspirin", "100mg once daily", patient1, doctor1);
+        Prescription prescription2 = new Prescription("Sumatriptan", "50mg as needed", patient2, doctor2);
+
+        hospital.addPrescription(prescription1);
+        hospital.addPrescription(prescription2);
+
+        // Displaying information
+        System.out.println(hospital);
+
+        HospitalService.displayPersonDetails(doctor1);
+        HospitalService.displayPersonDetails(nurse1);
+        HospitalService.displayPersonDetails(patient1);
+
+        // Using utility methods
+        HospitalService hospitalService = new HospitalService(100);  // Assuming max 100 beds in the hospital
+        hospitalService.processPerson(patient1);
+        hospitalService.processPerson(doctor1);
+
+        // Scanner logic to enter new patient details
+        System.out.println("Enter a new patient's details:");
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Birth Date (YYYY-MM-DD): ");
+        LocalDate birthDate = LocalDate.parse(scanner.nextLine());
+        System.out.print("Disease: ");
+        String disease = scanner.nextLine();
+        System.out.print("Admission Date (YYYY-MM-DD): ");
+        LocalDate admissionDate = LocalDate.parse(scanner.nextLine());
+
+        Patient newPatient = new Patient(name, birthDate, disease, admissionDate);
+        hospital.addPatient(newPatient);
+
+        System.out.println("New patient added: " + newPatient);
+
+
+
         scanner.close();
     }
+
+
 
 
 

@@ -1,16 +1,24 @@
 package hospital.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Appointment {
+    private LocalDate date;
     private Doctor doctor;
     private Patient patient;
-    private LocalDateTime appointmentDateTime;
 
-    public Appointment(Doctor doctor, Patient patient, LocalDateTime appointmentDateTime) {
+    public Appointment(LocalDate date, Doctor doctor, Patient patient) {
+        this.date = date;
         this.doctor = doctor;
         this.patient = patient;
-        this.appointmentDateTime = appointmentDateTime;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Doctor getDoctor() {
@@ -21,7 +29,6 @@ public class Appointment {
         this.doctor = doctor;
     }
 
-
     public Patient getPatient() {
         return patient;
     }
@@ -30,16 +37,12 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public LocalDateTime getAppointmentDateTime() {
-        return appointmentDateTime;
-    }
-
-    public void setAppointmentDateTime(LocalDateTime appointmentDateTime) {
-        this.appointmentDateTime = appointmentDateTime;
-    }
-
-    public void printDetails() {
-        System.out.println("Appointment with Dr. " + doctor.getName() + " for " + patient.getName() + " at " + appointmentDateTime);
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "date=" + date +
+                ", doctor=" + doctor.getName() +
+                ", patient=" + patient.getName() +
+                '}';
     }
 }
-

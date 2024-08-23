@@ -1,55 +1,130 @@
 package hospital.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Department {
     private String name;
-    private List<Patient> patients = new ArrayList<>();
-    private List<Doctor> doctors = new ArrayList<>();
+    private Doctor[] doctors;
+    private Nurse[] nurses;
+    private MedicalEquipment[] equipment;
+    private int maxBeds;  // Maximum number of beds available in this department
+    private int currentPatientCount;  // Current number of patients admitted in this department
 
-    public Department(String name) {
+    public Department(String name, int maxDoctors, int maxNurses, int maxEquipment, int maxBeds) {
         this.name = name;
+        this.doctors = new Doctor[maxDoctors];
+        this.nurses = new Nurse[maxNurses];
+        this.equipment = new MedicalEquipment[maxEquipment];
+        this.maxBeds = maxBeds;
+        this.currentPatientCount = 0;
     }
 
+
+    public void addDoctor(Doctor doctor) {
+        for (int i = 0; i < doctors.length; i++) {
+            if (doctors[i] == null) {
+                doctors[i] = doctor;
+                System.out.println("Doctor added to " + name + ": " + doctor.getName());
+                return;
+            }
+        }
+        System.out.println("Cannot add doctor to " + name + ". Department is full.");
+    }
+
+    public void addNurse(Nurse nurse) {
+        for (int i = 0; i < nurses.length; i++) {
+            if (nurses[i] == null) {
+                nurses[i] = nurse;
+                System.out.println("Nurse added to " + name + ": " + nurse.getName());
+                return;
+            }
+        }
+        System.out.println("Cannot add nurse to " + name + ". Department is full.");
+    }
+
+    public void addEquipment(MedicalEquipment equipment) {
+        for (int i = 0; i < this.equipment.length; i++) {
+            if (this.equipment[i] == null) {
+                this.equipment[i] = equipment;
+                System.out.println("Equipment added to " + name + ": " + equipment.getName());
+                return;
+            }
+        }
+        System.out.println("Cannot add equipment to " + name + ". Department is full.");
+    }
+
+    public boolean admitPatient() {
+        if (currentPatientCount < maxBeds) {
+            currentPatientCount++;
+            System.out.println("Patient admitted to " + name + ". Current patient count: " + currentPatientCount);
+            return true;
+        } else {
+            System.out.println("Cannot admit patient to " + name + ". Department is full.");
+            return false;
+        }
+    }
+
+    public void dischargePatient() {
+        if (currentPatientCount > 0) {
+            currentPatientCount--;
+            System.out.println("Patient discharged from " + name + ". Current patient count: " + currentPatientCount);
+        } else {
+            System.out.println("No patients to discharge from " + name + ".");
+        }
+    }
+
+    // Getters and Setters
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Doctor[] getDoctors() {
+        return doctors.clone();
     }
 
-    public void addPatient(Patient patient) {
-        patients.add(patient);
-        System.out.println("Patient added to " + name + ": " + patient.getName());
+    public Nurse[] getNurses() {
+        return nurses.clone();
     }
 
-    public void removePatient(Patient patient) {
-        if (patients.remove(patient)) {
-            System.out.println("Patient removed from " + name + ": " + patient.getName());
-        } else {
-            System.out.println("Patient not found in " + name);
-        }
+    public MedicalEquipment[] getEquipment() {
+        return equipment.clone();
     }
 
-    // Method to print all patients in the department without parameters
-    public void printPatients() {
-        System.out.println("Listing all patients in " + name + ":");
-        for (Patient patient : patients) {
-            System.out.println("Patient: " + patient.getName() + ", Disease: " + patient.getDisease());
-        }
+    public int getMaxBeds() {
+        return maxBeds;
     }
 
-    public void addDoctor(Doctor doctor) {
-        doctors.add(doctor);
-        System.out.println("Doctor added to " + name + ": " + doctor.getName());
+    public int getCurrentPatientCount() {
+        return currentPatientCount;
     }
 
-    public void listDoctors() {
-        System.out.println("Doctors in " + name + ":");
-        for (Doctor doctor : doctors) {
-            System.out.println(doctor.getName() + ", Specialty: " + doctor.getSpecialty());
-        }
+
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "name='" + name + '\'' +
+                ", doctors=" + Arrays.toString(doctors) +
+                ", nurses=" + Arrays.toString(nurses) +
+                ", equipment=" + Arrays.toString(equipment) +
+                ", maxBeds=" + maxBeds +
+                ", currentPatientCount=" + currentPatientCount +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Department that = (Department) o;
+        return maxBeds == that.maxBeds &&
+                currentPatientCount == that.currentPatientCount &&
+                name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, maxBeds, currentPatientCount);
     }
 }

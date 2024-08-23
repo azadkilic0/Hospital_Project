@@ -1,46 +1,59 @@
-package hospital.entities.services;
+package hospital.services;
 
 import hospital.entities.Patient;
 import hospital.entities.Person;
 import hospital.entities.Department;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class HospitalService {
-    private List<Patient> patients = new ArrayList<>();
-    private List<Department> departments = new ArrayList<>();
-    private int maxBeds = 100;
+    private Patient[] patients;
+    private Department[] departments;
+    private int maxBeds;
 
     public HospitalService(int maxBeds) {
         this.maxBeds = maxBeds;
+        this.patients = new Patient[maxBeds];
+        this.departments = new Department[10];
     }
 
     public void addPatient(Patient patient) {
-        if (patients.size() < maxBeds) {
-            patients.add(patient);
-            System.out.println("Patient added: " + patient.getName());
-        } else {
-            System.out.println("Cannot add patient. Hospital is full.");
+        for (int i = 0; i < patients.length; i++) {
+            if (patients[i] == null) {
+                patients[i] = patient;
+                System.out.println("Patient added: " + patient.getName());
+                return;
+            }
         }
+        System.out.println("Cannot add patient. Hospital is full.");
     }
 
     public void removePatient(Patient patient) {
-        patients.remove(patient);
-        System.out.println("Patient removed: " + patient.getName());
+        for (int i = 0; i < patients.length; i++) {
+            if (patients[i] != null && patients[i].equals(patient)) {
+                patients[i] = null;
+                System.out.println("Patient removed: " + patient.getName());
+                return;
+            }
+        }
+        System.out.println("Patient not found: " + patient.getName());
     }
 
     public void addDepartment(Department department) {
-        departments.add(department);
-        System.out.println("Department added: " + department.getName());
+        for (int i = 0; i < departments.length; i++) {
+            if (departments[i] == null) {
+                departments[i] = department;
+                System.out.println("Department added: " + department.getName());
+                return;
+            }
+        }
+        System.out.println("Cannot add department. Maximum capacity reached.");
     }
 
-    public List<Patient> getPatients() {
-        return patients;
+    public Patient[] getPatients() {
+        return patients.clone();
     }
 
-    public List<Department> getDepartments() {
-        return departments;
+    public Department[] getDepartments() {
+        return departments.clone();
     }
 
     public int getMaxBeds() {
@@ -49,14 +62,16 @@ public class HospitalService {
 
     public void setMaxBeds(int maxBeds) {
         this.maxBeds = maxBeds;
+        // Resize the patients array if maxBeds is changed
+        Patient[] newPatients = new Patient[maxBeds];
+        System.arraycopy(patients, 0, newPatients, 0, Math.min(patients.length, maxBeds));
+        this.patients = newPatients;
     }
 
-
-    public void displayPersonDetails(Person person) {
+    public static void displayPersonDetails(Person person) {
         System.out.println(person.toString());
     }
 
-    // Method that accepts only Person and its subclasses
     public void processPerson(Person person) {
         if (person instanceof Patient) {
             System.out.println("Processing patient: " + person.getName());

@@ -4,35 +4,13 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public abstract class Person {
-    protected String name;
-    protected LocalDate birthDate;
+    private String name;
+    private LocalDate birthDate;
 
-    public Person(String name, LocalDate birthDate) {
+    protected Person(String name, LocalDate birthDate) {
         this.name = name;
         this.birthDate = birthDate;
     }
-
-    public abstract void work();
-    public abstract String getRole();
-
-    @Override
-    public String toString() {
-        return "Person{name='" + name + "', birthDate=" + birthDate + "}";
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(name, person.name) && Objects.equals(birthDate, person.birthDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, birthDate);
-    }
-
 
     public String getName() {
         return name;
@@ -48,5 +26,30 @@ public abstract class Person {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public abstract void work();
+
+    public abstract String getRole();
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return name.equals(person.name) && birthDate.equals(person.birthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, birthDate);
     }
 }
